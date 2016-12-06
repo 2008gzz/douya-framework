@@ -6,7 +6,7 @@
  * Time: 4:42 PM
  */
 
-namespace douya;
+namespace Douya;
 
 
 class Db {
@@ -14,8 +14,18 @@ class Db {
     //  数据库连接实例
     private static $instance = [];
 
-    public static function connect($config = [], $name = false)
+    public static function connect($info = [], $name = false)
     {
+        $dsn = [
+            'type'     => $info['scheme'],
+            'username' => isset($info['user']) ? $info['user'] : '',
+            'password' => isset($info['pass']) ? $info['pass'] : '',
+            'hostname' => isset($info['host']) ? $info['host'] : '',
+            'hostport' => isset($info['port']) ? $info['port'] : '',
+            'database' => !empty($info['path']) ? ltrim($info['path'], '/') : '',
+            'charset'  => isset($info['fragment']) ? $info['fragment'] : 'utf8',
+        ];
+
         $config = "mysql:host=localhost;dbname=test";
         $db = new PDO($config, 'root', '');
         if (true === $db) {
