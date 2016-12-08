@@ -1,4 +1,7 @@
 <?php
+namespace Douya\Db;
+use PDO;
+
 class Sql
 {
     protected $_dbHandle;

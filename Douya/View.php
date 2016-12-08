@@ -1,4 +1,5 @@
 <?php
+namespace Douya;
 /**
  * 视图基类
  */
@@ -22,10 +23,10 @@ class View
     function render()
     {
         extract($this->variables);
-        $defaultHeader = APP_PATH . 'application/views/header.php';
-        $defaultFooter = APP_PATH . 'application/views/footer.php';
-        $controllerHeader = APP_PATH . 'application/views/' . $this->_controller . '/header.php';
-        $controllerFooter = APP_PATH . 'application/views/' . $this->_controller . '/footer.php';
+        $defaultHeader = APP_PATH_VIEWS . 'header.php';
+        $defaultFooter = APP_PATH_VIEWS . 'footer.php';
+        $controllerHeader = APP_PATH_VIEWS . $this->_controller . '/header.php';
+        $controllerFooter = APP_PATH_VIEWS . $this->_controller . '/footer.php';
         // 页头文件
         if (file_exists($controllerHeader)) {
             include ($controllerHeader);

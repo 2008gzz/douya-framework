@@ -1,4 +1,5 @@
 <?php
+namespace Douya;
 /**
  * Created by PhpStorm.
  * User: gaz
@@ -13,7 +14,7 @@ class Core
     // 运行程序
     function run()
     {
-        spl_autoload_register(array($this, 'loadClass'));
+        spl_autoload_register(array($this, 'autoload'));
 
         $this->setReporting();
 
@@ -43,7 +44,7 @@ class Core
         // 数据为空的处理
         $queryString  = empty($queryString) ? array() : $queryString;
         // 实例化控制器
-        $controller = $controllerName . 'Controller';
+        $controller = '\app\controllers\\' . $controllerName . 'Controller';
 
         $dispatch = new $controller($controllerName, $action);
         // 如果控制器存和动作存在，这调用并传入URL参数
@@ -96,23 +97,41 @@ class Core
             }
         }
     }
-    // 自动加载控制器和模型类
-    static function loadClass($class)
+    // // 自动加载控制器和模型类
+    // static function loadClass($class)
+    // {
+    //     $frameworks = FRAME_PATH . $class . '.php';
+    //     $controllers = APP_PATH . 'application/controllers/' . $class . '.class.php';
+    //     $models = APP_PATH . 'application/models/' . $class . '.class.php';
+    //     if (file_exists($frameworks)) {
+    //         // 加载框架核心类
+    //         include_once $frameworks;
+    //     } elseif (file_exists($controllers)) {
+    //         // 加载应用控制器类
+    //         include_once $controllers;
+    //     } elseif (file_exists($models)) {
+    //         //加载应用模型类
+    //         include_once $models;
+    //     } else {
+    //         /* 错误代码 */
+    //     }
+    // }
+    //
+
+    public function autoload($className)
     {
-        $frameworks = FRAME_PATH . $class . '.class.php';
-        $controllers = APP_PATH . 'application/controllers/' . $class . '.class.php';
-        $models = APP_PATH . 'application/models/' . $class . '.class.php';
-        if (file_exists($frameworks)) {
-            // 加载框架核心类
-            include $frameworks;
-        } elseif (file_exists($controllers)) {
-            // 加载应用控制器类
-            include $controllers;
-        } elseif (file_exists($models)) {
-            //加载应用模型类
-            include $models;
+        if (0 === strpos($className, 'app\\')) {
+            // 应用类
+            $fileName = APP_PATH . 'application/' . strtr(substr($className, 4), '\\', '/') . '.class.php';
+        } else if (0 === strpos($className, 'Douya\\')) {
+            //核心类
+            $fileName = __DIR__ . '/' . strtr(substr($className, 6), '\\', '/') . '.php';
         } else {
-            /* 错误代码 */
+            return;
+        }
+
+        if (file_exists($fileName)) {
+            require $fileName;
         }
     }
 }

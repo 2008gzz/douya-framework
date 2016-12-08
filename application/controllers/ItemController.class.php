@@ -1,4 +1,8 @@
 <?php
+namespace app\controllers;
+
+use Douya\Controller;
+use app\models\ItemModel;
 /**
  * Created by PhpStorm.
  * User: gaz

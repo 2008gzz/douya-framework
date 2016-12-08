@@ -6,7 +6,7 @@
  * Time: 2:13 PM
  */
 /** 变量配置 **/
-define('DB_NAME', 'mydb');
-define('DB_USER', 'root');
-define('DB_PASSWORD', '');
-define('DB_HOST', 'localhost');
+include APP_PATH . 'config/db.php';
+
+
+defined('APP_PATH_VIEWS') or define('APP_PATH_VIEWS', APP_PATH.'application/views/');

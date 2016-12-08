@@ -1,4 +1,5 @@
 <?php
+namespace Douya;
 /**
  * 控制器基类
  */

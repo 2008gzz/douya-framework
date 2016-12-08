@@ -1,4 +1,7 @@
 <?php
+namespace app\models;
+
+use Douya\Model;
 
 class ItemModel extends Model
 {
