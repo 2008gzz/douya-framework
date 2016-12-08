@@ -6,13 +6,11 @@
  * Time: 10:59 AM
  */
 
-$c_str = $_GET['c'];
-$c_name = $c_str.'Controller';
-// 定义应用目录
-define('APP_PATH', 'app/');
-$c_path = APP_PATH .'controller/'.$c_name.'.php';
-$method = $_GET['a'];
-$param = $_GET['param'];
-require($c_path);
-$controller = new $c_name;
-$controller->$method($param);
+// 应用目录为当前目录
+define('APP_PATH', __DIR__.'/');
+// 开启调试模式
+define('APP_DEBUG', true);
+// 网站根URL
+define('APP_URL', 'http://douya.com');
+// 加载框架
+require './Douya/Douya.php';
